@@ -49,8 +49,8 @@ The resulting product is a fully-automated Ubuntu installer. This serves as an e
       docker run --rm --volume "$(pwd):/data" \
         --user $(id -u):$(id -g) deserializeme/pxeless \
         --all-in-one  \
-        --user-data user-data.basic \
-        --code-name jammy \
+        --user-data user-data.2025 \
+        --code-name noble \
         --use-release-iso 
       ```
           

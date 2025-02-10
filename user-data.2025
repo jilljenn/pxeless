@@ -1,0 +1,157 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: localhost
+    username: candidat
+    password: "$y$j9T$M8pOhdJXJomM/7Vc3cKxe/$LvbRXmH3k12LwI4ztmouQSxjecrNmMJjV5gbGRD0na2"  # concours
+  interactive-sections:
+    - storage
+  keyboard:
+    layout: fr
+  locale: fr_FR
+  package_update: true
+  packages:
+    - xubuntu-desktop
+    - libreoffice
+    - libreoffice-l10n-fr
+    - codium
+    # - xfce4  # Plus léger mais ne fonctionne pas
+    - ocaml
+    - inkscape
+    - gimp
+    - apache2
+    - wget
+    - htop
+    - language-pack-fr
+    - vim
+    - emacs
+    - python3-pyqt5
+    - zeal
+    - php-cli
+    - sqlite3
+    - git
+    - gcc-10
+    - build-essential
+    - gdb
+    - valgrind
+    - gfortran
+    - gprolog
+    - python3-pip
+    - graphviz
+    - gnuplot
+    - flex
+    - ml-yacc
+    - ragel
+    - menhir
+    - python-is-python3
+    - python-dev-is-python3
+    - subversion
+    - opam
+    - pkg-config
+    - zlib1g-dev
+    - libffi-dev
+    - libgmp-dev
+    - libzmq5-dev
+    - evince
+    - zerofree
+    - manpages
+    - manpages-dev
+    - manpages-fr
+    - manpages-fr-dev
+    - glibc-doc
+    - man-db
+    - bash-completion
+    - console-data
+    - libapache2-mod-php8.3
+    - plocate
+    - nemo
+    - rfkill
+    - rdiff-backup
+    - lsyncd
+    - krb5-user
+    - libpam-krb5
+    - freeipa-client
+    - nfs-common
+    - autofs
+    - chrony
+    - xserver-xorg-input-kbd
+    - iptables-persistent
+  refresh-installer:
+    update: false #touched
+  ssh:
+    allow-pw: no
+    authorized-keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+qSaTH29RV26KSAXou4w2pnKjmW+0v/USTHBLx6dKwvQemzGnNpGfQRWzNwMRPEG6KWmLoXQzg3qSefFb2i+b9lvo9BNd0kyf3811tbgnuw8bNC439hSPXtBZh/LayESLZ22zxotSV5U2R05oLmabyL61A0XpG+XtgjQfUMQdJcNwCRqlFMTR1rVh/jdBIqAc5DpTgBnb/FV6+edxyhgi1Lt6wPyBa18WwEBLPDqaZccburtST9+4d+t86ZRHzRk+HecvCnvWDq8NFsgM1vTFP4OSDmq7o592G26bC6pWsUR77+Y21JI37htuK28YbxnRJHoiyl9hDVuTyzoMxTdBizFNZnaiEUbhDilOErho5mfxkZUVWLWs9HSB911HCcPZEC4c0hOgsGq8PHK2XILMms4/ovgVgK9ipY+eofajo4hYWZV/iETo7WGlNwlur2py0pPFrq0U4YIljcwytUFNCIHwsVxYt4ohHtFJd9UPW32N/ycLAxGyRY8XG9sHJsc= mc@persephone"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBj3bZEcuhIY7JFJibfAspS9KSjU0LTLN+cGVAjKSwf/rhYDi7aQ/huOV0zk9DZPJHGaUXO7bA/1HMYEl/I8ZivwRfEwVz4dqI17xMETzmzYmfcyYzua1FXs6KuxqWYvfFjf8yNN6/tpEhqxBBuhSK/Mzx87SVOONHunwJO34wARt0BtmBoGR2KeM2tHo8OLSHo/8WDj3ie28YjT9cd3lHcTH2sJ3TiP/vs8MGq80/sgVVSKNQ094mfqX7MX/2vugdUgb/7/RMRhmfrmjDe6oUb553Y+D7dJToYbiOm4NZh0soX/sUHt/Gt51hvM5SdaY96lXeuD+ZqhJBT6eZpX7t jj@pikachu"
+    install-server: yes
+  user-data:
+    bootcmd:
+      - modprobe -r iwlwifi
+      - rfkill block all
+    runcmd:
+      - git clone https://gitlab.com/agreg-info/lab-architecture.git
+      - "cd lab-architecture && bash ./scripts/install-machine.sh"
+      - "cp /home/candidat/.ssh/authorized_keys /root/.ssh/authorized_keys"
+    users:
+      - homedir: /home/candidat
+        lock_passwd: false
+        name: candidat
+        passwd: "$y$j9T$M8pOhdJXJomM/7Vc3cKxe/$LvbRXmH3k12LwI4ztmouQSxjecrNmMJjV5gbGRD0na2"  # concours
+        shell: /bin/bash
+  apt:
+    sources:
+      vscodium.list:
+        key: |
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          
+          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
+          =LCWI
+          -----END PGP PUBLIC KEY BLOCK-----
+        source: deb http://download.vscodium.com/debs vscodium main
