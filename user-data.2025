@@ -5,18 +5,19 @@ autoinstall:
     hostname: localhost
     username: candidat
     password: "$y$j9T$M8pOhdJXJomM/7Vc3cKxe/$LvbRXmH3k12LwI4ztmouQSxjecrNmMJjV5gbGRD0na2"  # concours
-  interactive-sections:
-    - storage
+  storage:
+    layout:
+      name: direct
   keyboard:
     layout: fr
   locale: fr_FR
   package_update: true
   packages:
-    - xubuntu-desktop
+    - xfce4
+    - gdm3
     - libreoffice
     - libreoffice-l10n-fr
     - codium
-    # - xfce4  # Plus léger mais ne fonctionne pas
     - ocaml
     - inkscape
     - gimp
@@ -90,6 +91,7 @@ autoinstall:
       - modprobe -r iwlwifi
       - rfkill block all
     runcmd:
+      - apt remove ubuntu-session  # So that we log in on XFCE by default
       - git clone https://gitlab.com/agreg-info/lab-architecture.git
       - "cd lab-architecture && bash ./scripts/install-machine.sh"
       - "cp /home/candidat/.ssh/authorized_keys /root/.ssh/authorized_keys"

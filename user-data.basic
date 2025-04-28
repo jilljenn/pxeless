@@ -4,6 +4,15 @@ autoinstall:
   update: yes
   keyboard: {layout: us, toggle: null, variant: ''}
   locale: en_US.UTF-8
+  network:
+    ethernets:
+      enp3s0:
+        dhcp4: true
+    version: 2
+  package_update: true
+  packages:
+    - xubuntu-desktop
+    - codium
   identity:
     hostname: pxeless
     password: "$6$rounds=4096$saltsaltlettuce$Lp/FV.2oOgew7GbM6Nr8KMGMBn7iFM0x9ZwLqtx9Y4QJmKvfcnS.2zx4MKmymCPQGpHS7gqYOiqWjvdCIV2uN."
