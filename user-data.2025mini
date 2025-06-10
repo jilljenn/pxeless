@@ -15,81 +15,8 @@ autoinstall:
   packages:
     - xfce4
     - gdm3
-    - libreoffice
-    - libreoffice-l10n-fr
-    - codium
-    - ocaml
-    - inkscape
-    - gimp
-    - apache2
-    - wget
-    - htop
-    - language-pack-fr
-    - vim
-    - emacs
-    - zeal
-    - php-cli
-    - sqlite3
-    - git
-    - gcc-10
-    - build-essential
     - gdb
-    - valgrind
-    - gfortran
-    - gprolog
-    - python3-pip
-    - python3-numpy
-    - python3-scipy
-    - python3-sklearn
-    - python3-matplotlib
-    - python3-pandas
-    - python3-pil
-    - python3-imageio
-    - python3-mypy
-    - python3-networkx
-    - python3-pydot
-    - jupyter-notebook
-    - graphviz
-    - gnuplot
-    - flex
-    - ml-yacc
-    - ragel
-    - menhir
-    - python-is-python3
-    - python-dev-is-python3
-    - subversion
-    - opam
-    - pkg-config
-    - zlib1g-dev
-    - libffi-dev
-    - libgmp-dev
-    - libzmq5-dev
-    - evince
-    - zerofree
-    - manpages
-    - manpages-dev
-    - manpages-fr
-    - manpages-fr-dev
-    - glibc-doc
-    - man-db
-    - bash-completion
-    - console-data
-    - libapache2-mod-php8.3
-    - plocate
-    - nemo
-    - rfkill
-    - rdiff-backup
-    - lsyncd
-    - krb5-user
-    - libpam-krb5
-    - freeipa-client
-    - nfs-common
-    - autofs
-    - chrony
-    - xserver-xorg-input-kbd
-    - iptables-persistent
-    - clang
-    - clangd
+    - ansible-core
   refresh-installer:
     update: false #touched
   ssh:
@@ -99,14 +26,12 @@ autoinstall:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBj3bZEcuhIY7JFJibfAspS9KSjU0LTLN+cGVAjKSwf/rhYDi7aQ/huOV0zk9DZPJHGaUXO7bA/1HMYEl/I8ZivwRfEwVz4dqI17xMETzmzYmfcyYzua1FXs6KuxqWYvfFjf8yNN6/tpEhqxBBuhSK/Mzx87SVOONHunwJO34wARt0BtmBoGR2KeM2tHo8OLSHo/8WDj3ie28YjT9cd3lHcTH2sJ3TiP/vs8MGq80/sgVVSKNQ094mfqX7MX/2vugdUgb/7/RMRhmfrmjDe6oUb553Y+D7dJToYbiOm4NZh0soX/sUHt/Gt51hvM5SdaY96lXeuD+ZqhJBT6eZpX7t jj@pikachu"
     install-server: yes
   user-data:
-    bootcmd:
-      - modprobe -r iwlwifi
-      - rfkill block all
     runcmd:
       - apt remove ubuntu-session  # So that we log in on XFCE by default
       - git clone https://gitlab.com/agreg-info/lab-architecture.git
       - "cd lab-architecture && bash ./scripts/install-machine.sh"
       - "cp /home/candidat/.ssh/authorized_keys /root/.ssh/authorized_keys"
+      - "cd lab-architecture && ansible-playbook -c local -i localhost, tests/check-packages.yaml > /home/candidat/check-packages.txt"
     users:
       - homedir: /home/candidat
         lock_passwd: false
